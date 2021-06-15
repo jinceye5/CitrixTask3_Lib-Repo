@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="ExportAttachments" this:ExportAttachments.FilePath="D:\Users\martin.i\Documents\UiPath\Element5\Attachments" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/cv" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing" xmlns:this="clr-namespace:" xmlns:uc="clr-namespace:UiPath.CV;assembly=UiPath.CV" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="ExportAttachments" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/cv" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing" xmlns:uc="clr-namespace:UiPath.CV;assembly=UiPath.CV" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="FilePath" Type="InArgument(x:String)">
       <x:Property.Attributes>
@@ -14,7 +14,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1479,917</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1479,748</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ExportAttachments_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="64">
@@ -96,10 +96,9 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.OmniPage.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ExportAttachments" sap:VirtualizedContainerService.HintSize="476,852" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ExportAttachments" sap:VirtualizedContainerService.HintSize="476,559" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Int32" Default="2000" Name="shortDelay" />
       <Variable x:TypeArguments="x:Int32" Default="15000" Name="longDelay" />
@@ -111,7 +110,7 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;ExportAttachments activity started&quot;]" />
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,498" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="434,205" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -131,7 +130,7 @@
                   <Variable x:TypeArguments="x:Boolean" Name="FileNameInputBoxExists" />
                   <Variable x:TypeArguments="x:Boolean" Name="SaveButtonExists" />
                 </Sequence.Variables>
-                <p:CvElementExistsWithDescriptor Descriptor="[&quot;Target: Button (444,614,123,31)&quot; +&#xD;&#xA;&quot;Anchor: Button (574,613,124,32)&quot; +&#xD;&#xA;&quot;Anchor: Button (461,663,153,42)&quot;]" DesignTimeCacheId="2a7da3e1-bfd0-458d-8f84-f6fc5514b881" DesignTimeScaleFactor="1" DisplayName="CV Element Exists - Button" sap:VirtualizedContainerService.HintSize="755,136" sap2010:WorkflowViewState.IdRef="CvElementExistsWithDescriptor_1" InformativeScreenshot="cda3b8afeaf3f7e25750a9921e1812b8" Result="[ExportButtonExists]" Version="V2">
+                <p:CvElementExistsWithDescriptor Descriptor="[&quot;Target: Button (444,614,123,31)&quot; +&#xA;&quot;Anchor: Button (574,613,124,32)&quot; +&#xA;&quot;Anchor: Button (461,663,153,42)&quot;]" DesignTimeCacheId="2a7da3e1-bfd0-458d-8f84-f6fc5514b881" DesignTimeScaleFactor="1" DisplayName="CV Element Exists - Button" sap:VirtualizedContainerService.HintSize="755,136" sap2010:WorkflowViewState.IdRef="CvElementExistsWithDescriptor_1" InformativeScreenshot="cda3b8afeaf3f7e25750a9921e1812b8" Result="[ExportButtonExists]" Version="V2">
                   <p:CvElementExistsWithDescriptor.DesignTimeDescriptor>
                     <uc:CvDescriptor>
                       <uc:CvDescriptor.Anchors>
@@ -148,7 +147,7 @@
                 </p:CvElementExistsWithDescriptor>
                 <If Condition="[ExportButtonExists]" sap:VirtualizedContainerService.HintSize="755,402" sap2010:WorkflowViewState.IdRef="If_1">
                   <If.Then>
-                    <p:CvClickWithDescriptor CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" Descriptor="[&quot;Target: Button (444,614,123,31)&quot; +&#xD;&#xA;&quot;Anchor: Button (574,613,124,32)&quot; +&#xD;&#xA;&quot;Anchor: Button (461,663,153,42)&quot;]" DesignTimeCacheId="2a7da3e1-bfd0-458d-8f84-f6fc5514b881" DesignTimeScaleFactor="1" DisplayName="CV Click - Button" sap:VirtualizedContainerService.HintSize="334,136" sap2010:WorkflowViewState.IdRef="CvClickWithDescriptor_1" InformativeScreenshot="cda3b8afeaf3f7e25750a9921e1812b8" KeyModifiers="None" MouseButton="BTN_LEFT" Version="V2">
+                    <p:CvClickWithDescriptor CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" ClickType="CLICK_SINGLE" Descriptor="[&quot;Target: Button (444,614,123,31)&quot; +&#xA;&quot;Anchor: Button (574,613,124,32)&quot; +&#xA;&quot;Anchor: Button (461,663,153,42)&quot;]" DesignTimeCacheId="2a7da3e1-bfd0-458d-8f84-f6fc5514b881" DesignTimeScaleFactor="1" DisplayName="CV Click - Button" sap:VirtualizedContainerService.HintSize="334,136" sap2010:WorkflowViewState.IdRef="CvClickWithDescriptor_1" InformativeScreenshot="cda3b8afeaf3f7e25750a9921e1812b8" KeyModifiers="None" MouseButton="BTN_LEFT" Version="V2">
                       <p:CvClickWithDescriptor.CursorPosition>
                         <ui:CursorPosition Position="Center">
                           <ui:CursorPosition.OffsetX>
@@ -324,7 +323,7 @@
             <uc:CvCacheContainer>
               <uc:CvCacheContainer.Caches>
                 <scg:List x:TypeArguments="uc:CVCache" Capacity="2">
-                  <uc:CVCache DisplayName="Main Screen" Id="2a7da3e1-bfd0-458d-8f84-f6fc5514b881" InformativeScreenshot="5ca063adc705bb95b9bca8adca8ffb41" LogicalPosition="451, 119" OcrText="G View Patient Attachments for ALLHZISON, JOHANNA L. - D X&#xD;&#xA;IF Search for Existing Attachments R t v L t‘ v T v Included in v Viewable&#xD;&#xA;Recipients: ec'p'e&quot; 0°“ '°&quot; We Medical Record PointCar&#xD;&#xA;EEgtientsui ALLZZZISON. JOHANNA CLIENT H8.P Y N&#xD;&#xA;ALLZZZISON, JOHANNA X ALLZZZISON. JOHANNA CLIENT 3074 Y Y&#xD;&#xA;ALLZZZISON. JOHANNA CLIENT 3071 Y Y&#xD;&#xA;E] Ep'swes ALLZZZISON. JOHANNA CLIENT CONSENT Y Y&#xD;&#xA;ALLZZZISON. JOHANNA CLIENT DNR Y Y&#xD;&#xA;ALLZZZISON. JOHANNA CLIENT FACILITY NOTICE OF Y Y&#xD;&#xA;El Deposits HOSPICE&#xD;&#xA;ALLZZZISON. JOHANNA CLIENT FACILITY NOTICE OF Y Y&#xD;&#xA;— HOSPICE&#xD;&#xA;E] Payors ALLZZZISON. JOHANNA CLIENT OTHER Y Y&#xD;&#xA;ALLZZZISON. JOHANNA CLIENT REFERRAL Y Y&#xD;&#xA;— DOCUMENTATION&#xD;&#xA;Attachment Locations: ALLZZZISON. JOHANNA CLIENT ELIGIBILITY OF BENEFITS Y Y&#xD;&#xA;(ALL) v&#xD;&#xA;Attachment Types:&#xD;&#xA;(ALL) v&#xD;&#xA;Included in Medical Record:&#xD;&#xA;lCD'Yes ONO lEJIAII&#xD;&#xA;VisitIEffective Date:&#xD;&#xA;From: To:&#xD;&#xA;Comments:&#xD;&#xA;Status: ‘71—“ ITI&#xD;&#xA;OActive Olnactive ©AII" Position="451, 119" ScreenshotGuid="1a99110b-8262-4072-90c0-b0f99015f501" ServerVersion="1">
+                  <uc:CVCache DisplayName="Main Screen" Id="2a7da3e1-bfd0-458d-8f84-f6fc5514b881" InformativeScreenshot="5ca063adc705bb95b9bca8adca8ffb41" LogicalPosition="451, 119" OcrText="G View Patient Attachments for ALLHZISON, JOHANNA L. - D X&#xA;IF Search for Existing Attachments R t v L t‘ v T v Included in v Viewable&#xA;Recipients: ec'p'e&quot; 0°“ '°&quot; We Medical Record PointCar&#xA;EEgtientsui ALLZZZISON. JOHANNA CLIENT H8.P Y N&#xA;ALLZZZISON, JOHANNA X ALLZZZISON. JOHANNA CLIENT 3074 Y Y&#xA;ALLZZZISON. JOHANNA CLIENT 3071 Y Y&#xA;E] Ep'swes ALLZZZISON. JOHANNA CLIENT CONSENT Y Y&#xA;ALLZZZISON. JOHANNA CLIENT DNR Y Y&#xA;ALLZZZISON. JOHANNA CLIENT FACILITY NOTICE OF Y Y&#xA;El Deposits HOSPICE&#xA;ALLZZZISON. JOHANNA CLIENT FACILITY NOTICE OF Y Y&#xA;— HOSPICE&#xA;E] Payors ALLZZZISON. JOHANNA CLIENT OTHER Y Y&#xA;ALLZZZISON. JOHANNA CLIENT REFERRAL Y Y&#xA;— DOCUMENTATION&#xA;Attachment Locations: ALLZZZISON. JOHANNA CLIENT ELIGIBILITY OF BENEFITS Y Y&#xA;(ALL) v&#xA;Attachment Types:&#xA;(ALL) v&#xA;Included in Medical Record:&#xA;lCD'Yes ONO lEJIAII&#xA;VisitIEffective Date:&#xA;From: To:&#xA;Comments:&#xA;Status: ‘71—“ ITI&#xA;OActive Olnactive ©AII" Position="451, 119" ScreenshotGuid="1a99110b-8262-4072-90c0-b0f99015f501" ServerVersion="1">
                     <uc:CVCache.CvTables>
                       <x:Array Type="uc:CvTableInfo">
                         <uc:CvTableInfo>
@@ -915,10 +914,10 @@
         </p:CVScope>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,314" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="400,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>

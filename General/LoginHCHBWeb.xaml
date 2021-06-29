@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="LogIn" this:LogIn.AppName="HCHB R2 - TRADITIONS HEALTH CARE TRAINING" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/cv" xmlns:p1="http://schemas.uipath.com/workflow/activities/ocr" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:uc="clr-namespace:UiPath.CV;assembly=UiPath.CV" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="LogIn" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/cv" xmlns:p1="http://schemas.uipath.com/workflow/activities/ocr" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Drawing;assembly=System.Drawing" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:uc="clr-namespace:UiPath.CV;assembly=UiPath.CV" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Name of the HCHB App" Name="AppName" Type="InArgument(x:String)">
       <x:Property.Attributes>
@@ -20,6 +20,13 @@
         <RequiredArgumentAttribute />
       </x:Property.Attributes>
     </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="Maximum number of times opening HCHB App has to be retried if failed" Name="RetryLimit" Type="InArgument(x:Int32)">
+      <x:Property.Attributes>
+        <RequiredArgumentAttribute />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property sap2010:Annotation.AnnotationText="API Key for Computer Vision" Name="APIKey" Type="InArgument(x:String)" />
+    <x:Property sap2010:Annotation.AnnotationText="Interval between each retry" Name="RetryInterval" Type="InArgument(x:TimeSpan)" />
   </x:Members>
   <this:LogIn.HCHBBrowserTab>
     <InArgument x:TypeArguments="ui:Browser" />
@@ -27,7 +34,7 @@
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1488,6203</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1175,6181</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>LogIn_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="40">
@@ -112,17 +119,11 @@
       <AssemblyReference>UiPath.Mail</AssemblyReference>
       <AssemblyReference>UiPath.OmniPage.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Platform</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Workflow to login to HCHB Web using the provided Credentials" DisplayName="Login" sap:VirtualizedContainerService.HintSize="995,6138" sap2010:WorkflowViewState.IdRef="Sequence_20">
-    <Sequence.Variables>
-      <Variable x:TypeArguments="x:Int32" Default="5000" Name="MediumDelay" />
-      <Variable x:TypeArguments="x:Int32" Default="2000" Name="ShortDelay" />
-      <Variable x:TypeArguments="x:Int32" Default="15000" Name="LongDelay" />
-    </Sequence.Variables>
+  <Sequence sap2010:Annotation.AnnotationText="Activity to login to HCHB Web using the provided Credentials" DisplayName="Login" sap:VirtualizedContainerService.HintSize="995,6116" sap2010:WorkflowViewState.IdRef="Sequence_20">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -130,7 +131,7 @@
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
     <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="953,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;LoginHCHBApp activity started&quot;]" />
-    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="953,5753" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="953,5731" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <TryCatch.Try>
         <Sequence DisplayName="Login" sap:VirtualizedContainerService.HintSize="915,5482" sap2010:WorkflowViewState.IdRef="Sequence_1">
           <Sequence.Variables>
@@ -142,15 +143,15 @@
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" Browser="[HCHBBrowserTab]" BrowserType="Chrome" DisplayName="Attach Browser 'chrome.exe HCHB'" sap:VirtualizedContainerService.HintSize="873,4259" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="122c708bf6c2ecab4cc02c9f867a37ba">
+          <ui:BrowserScope BrowserType="{x:Null}" SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" Browser="[HCHBBrowserTab]" DisplayName="Attach Browser 'chrome.exe HCHB'" sap:VirtualizedContainerService.HintSize="873,4290" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="122c708bf6c2ecab4cc02c9f867a37ba">
             <ui:BrowserScope.Body>
               <ActivityAction x:TypeArguments="x:Object">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
                 </ActivityAction.Argument>
-                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="839,4113" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="839,4144" sap2010:WorkflowViewState.IdRef="Sequence_4">
                   <Sequence.Variables>
-                    <Variable x:TypeArguments="x:Boolean" Name="LoginButtonExists" />
+                    <Variable x:TypeArguments="x:Boolean" Name="TrainingFolderExists" />
                     <Variable x:TypeArguments="x:Boolean" Name="PopupWindowExists" />
                     <Variable x:TypeArguments="x:Boolean" Name="StartingCitrixWindowExists" />
                     <Variable x:TypeArguments="x:String" Name="LoginErrorMessage" />
@@ -162,9 +163,12 @@
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:UiElementExists sap2010:Annotation.AnnotationText="Checks whether Log On button is present" DisplayName="Element Exists - Log On Button" Exists="[loginButtonExists]" sap:VirtualizedContainerService.HintSize="797,137" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
+                  <ui:UiElementExists sap2010:Annotation.AnnotationText="Checks whether Log On button exists" DisplayName="Element Exists - Log On Button" Exists="[TrainingFolderExists]" sap:VirtualizedContainerService.HintSize="797,137" sap2010:WorkflowViewState.IdRef="UiElementExists_1">
                     <ui:UiElementExists.Target>
-                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e843b1d0-1af9-426d-ba59-635aa2fe1955" InformativeScreenshot="4dcdcea31d520b9c0dfd26765a25600c" Selector="&lt;webctrl tag='INPUT' type='submit' /&gt;" TimeoutMS="[ShortDelay]">
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e843b1d0-1af9-426d-ba59-635aa2fe1955" InformativeScreenshot="4dcdcea31d520b9c0dfd26765a25600c" Selector="&lt;webctrl tag='INPUT' type='submit' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
                         <ui:Target.WaitForReady>
                           <InArgument x:TypeArguments="ui:WaitForReady" />
                         </ui:Target.WaitForReady>
@@ -176,7 +180,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:UiElementExists>
-                  <If sap2010:Annotation.AnnotationText="If Log On Button Exists" Condition="[loginButtonExists]" DisplayName="If" sap:VirtualizedContainerService.HintSize="797,830" sap2010:WorkflowViewState.IdRef="If_3">
+                  <If sap2010:Annotation.AnnotationText="If Log On Button Exists" Condition="[TrainingFolderExists]" DisplayName="If" sap:VirtualizedContainerService.HintSize="797,830" sap2010:WorkflowViewState.IdRef="If_3">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -195,7 +199,10 @@
                         </sap:WorkflowViewStateService.ViewState>
                         <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" sap2010:Annotation.AnnotationText="Enter Username" DisplayName="Type Into 'User Name'" EmptyField="True" sap:VirtualizedContainerService.HintSize="334,165" sap2010:WorkflowViewState.IdRef="TypeInto_1" SimulateType="True" Text="[Username]">
                           <ui:TypeInto.Target>
-                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ba186c78-b835-4a0b-8809-cfcd60e6f78b" InformativeScreenshot="b9cd98812181f11dde59cb148ffe704b" Selector="&lt;webctrl tag='INPUT' /&gt;" TimeoutMS="[mediumDelay]">
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ba186c78-b835-4a0b-8809-cfcd60e6f78b" InformativeScreenshot="b9cd98812181f11dde59cb148ffe704b" Selector="&lt;webctrl tag='INPUT' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
                               <ui:Target.WaitForReady>
                                 <InArgument x:TypeArguments="ui:WaitForReady" />
                               </ui:Target.WaitForReady>
@@ -209,7 +216,10 @@
                         </ui:TypeInto>
                         <ui:TypeSecureText AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" sap2010:Annotation.AnnotationText="Enter Password" DisplayName="Type Secure Text 'Password'" EmptyField="True" sap:VirtualizedContainerService.HintSize="334,137" sap2010:WorkflowViewState.IdRef="TypeSecureText_1" SecureText="[Password]" SimulateType="True">
                           <ui:TypeSecureText.Target>
-                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cbf8c629-79dd-4a7b-a7b3-e2420cf44c24" InformativeScreenshot="15391fcb9bf8e483048a3991d5fdb181" Selector="&lt;webctrl id='passwd' tag='INPUT' type='password' /&gt;" TimeoutMS="[mediumDelay]">
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cbf8c629-79dd-4a7b-a7b3-e2420cf44c24" InformativeScreenshot="15391fcb9bf8e483048a3991d5fdb181" Selector="&lt;webctrl id='passwd' tag='INPUT' type='password' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
                               <ui:Target.WaitForReady>
                                 <InArgument x:TypeArguments="ui:WaitForReady" />
                               </ui:Target.WaitForReady>
@@ -233,7 +243,10 @@
                             </ui:CursorPosition>
                           </ui:Click.CursorPosition>
                           <ui:Click.Target>
-                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6d9d467a-979f-46ce-a7e3-477d4b81ccea" InformativeScreenshot="e39196ec319d7ced8d13833d522a3e44" Selector="&lt;webctrl tag='INPUT' type='submit' /&gt;" TimeoutMS="[shortDelay]">
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6d9d467a-979f-46ce-a7e3-477d4b81ccea" InformativeScreenshot="e39196ec319d7ced8d13833d522a3e44" Selector="&lt;webctrl tag='INPUT' type='submit' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
                               <ui:Target.WaitForReady>
                                 <InArgument x:TypeArguments="ui:WaitForReady" />
                               </ui:Target.WaitForReady>
@@ -248,20 +261,23 @@
                       </Sequence>
                     </If.Then>
                     <If.Else>
-                      <Sequence DisplayName="SystemException" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_24">
+                      <Sequence DisplayName="BusinessRuleException" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_24">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
                         <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Error" Message="[&quot;Failed to find Log On button&quot;]" />
-                        <Throw Exception="[new SystemException(&quot;FAILED_TO_FIND_LOGIN_BUTTON&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_3" />
+                        <Throw Exception="[new BusinessRuleException(&quot;FAILED_TO_FIND_LOGIN_BUTTON&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_3" />
                       </Sequence>
                     </If.Else>
                   </If>
-                  <ui:UiElementExists sap2010:Annotation.AnnotationText="Checks whether Log On button is present." DisplayName="Element Exists - Error Feedback" Exists="[errorFeedbackExists]" sap:VirtualizedContainerService.HintSize="797,137" sap2010:WorkflowViewState.IdRef="UiElementExists_8">
+                  <ui:UiElementExists sap2010:Annotation.AnnotationText="Checks whether login error feedback exists" DisplayName="Element Exists - Error Feedback" Exists="[errorFeedbackExists]" sap:VirtualizedContainerService.HintSize="797,137" sap2010:WorkflowViewState.IdRef="UiElementExists_8">
                     <ui:UiElementExists.Target>
-                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e843b1d0-1af9-426d-ba59-635aa2fe1955" InformativeScreenshot="647c19100a9ef8f8b1223e64214225eb" Selector="&lt;webctrl id='feedbackStyle' tag='DIV' /&gt;" TimeoutMS="[shortDelay]">
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e843b1d0-1af9-426d-ba59-635aa2fe1955" InformativeScreenshot="647c19100a9ef8f8b1223e64214225eb" Selector="&lt;webctrl id='feedbackStyle' tag='DIV' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
                         <ui:Target.WaitForReady>
                           <InArgument x:TypeArguments="ui:WaitForReady" />
                         </ui:Target.WaitForReady>
@@ -273,25 +289,33 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:UiElementExists>
-                  <If Condition="[errorFeedbackExists]" sap:VirtualizedContainerService.HintSize="797,687" sap2010:WorkflowViewState.IdRef="If_8">
+                  <If Condition="[errorFeedbackExists]" sap:VirtualizedContainerService.HintSize="797,718" sap2010:WorkflowViewState.IdRef="If_8">
                     <If.Then>
-                      <Sequence DisplayName="Get Error Feedback" sap:VirtualizedContainerService.HintSize="418,511" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                      <Sequence DisplayName="Get Error Feedback" sap:VirtualizedContainerService.HintSize="418,542" sap2010:WorkflowViewState.IdRef="Sequence_22">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="innertext" DisplayName="Get Attribute 'DIV  feedbackStyle'" sap:VirtualizedContainerService.HintSize="376,134" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
+                        <ui:GetAttribute ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Get error feedback" Attribute="innertext" DisplayName="Get Attribute 'DIV  feedbackStyle'" sap:VirtualizedContainerService.HintSize="376,165" sap2010:WorkflowViewState.IdRef="GetAttribute_1">
                           <ui:GetAttribute.Result>
                             <OutArgument x:TypeArguments="x:String">[loginErrorMessage]</OutArgument>
                           </ui:GetAttribute.Result>
                           <ui:GetAttribute.Target>
-                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5a29c715-d22c-4414-ba40-7856cf701def" InformativeScreenshot="647c19100a9ef8f8b1223e64214225eb" Selector="&lt;html app='chrome.exe' title='Homecare Homebase Apps' /&gt;&lt;webctrl id='feedbackStyle' tag='DIV' /&gt;" TimeoutMS="[mediumDelay]">
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5a29c715-d22c-4414-ba40-7856cf701def" InformativeScreenshot="647c19100a9ef8f8b1223e64214225eb" Selector="&lt;webctrl id='feedbackStyle' tag='DIV' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
                               <ui:Target.WaitForReady>
                                 <InArgument x:TypeArguments="ui:WaitForReady" />
                               </ui:Target.WaitForReady>
                             </ui:Target>
                           </ui:GetAttribute.Target>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
                         </ui:GetAttribute>
                         <Sequence DisplayName="BusinessRuleException" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_25">
                           <sap:WorkflowViewStateService.ViewState>
@@ -305,9 +329,12 @@
                       </Sequence>
                     </If.Then>
                   </If>
-                  <ui:UiElementExists sap2010:Annotation.AnnotationText="Checks whether Log On button is present." DisplayName="Element Exists - Log On Button" Exists="[LoginButtonExists]" sap:VirtualizedContainerService.HintSize="797,137" sap2010:WorkflowViewState.IdRef="UiElementExists_7">
+                  <ui:UiElementExists sap2010:Annotation.AnnotationText="Checks whether Log On button is present." DisplayName="Element Exists - Log On Button" Exists="[TrainingFolderExists]" sap:VirtualizedContainerService.HintSize="797,137" sap2010:WorkflowViewState.IdRef="UiElementExists_7">
                     <ui:UiElementExists.Target>
-                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e843b1d0-1af9-426d-ba59-635aa2fe1955" InformativeScreenshot="4dcdcea31d520b9c0dfd26765a25600c" Selector="&lt;webctrl tag='INPUT' type='submit' /&gt;" TimeoutMS="[shortDelay]">
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e843b1d0-1af9-426d-ba59-635aa2fe1955" InformativeScreenshot="fddf1e9ee96f9eac2150689940fa1774" Selector="&lt;webctrl aaname='Training' parentid='home-screen' tag='P' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
                         <ui:Target.WaitForReady>
                           <InArgument x:TypeArguments="ui:WaitForReady" />
                         </ui:Target.WaitForReady>
@@ -319,37 +346,40 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:UiElementExists>
-                  <If sap2010:Annotation.AnnotationText="If Log On Button still Exists" Condition="[loginButtonExists]" sap:VirtualizedContainerService.HintSize="797,433" sap2010:WorkflowViewState.IdRef="If_6">
+                  <If sap2010:Annotation.AnnotationText="If Log On Button still Exists" Condition="[TrainingFolderExists]" sap:VirtualizedContainerService.HintSize="797,433" sap2010:WorkflowViewState.IdRef="If_6">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                     <If.Then>
-                      <Sequence DisplayName="SystemException" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;Login Successful&quot;]">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:LogMessage>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence DisplayName="BusinessRuleException" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_26">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Error" Message="[&quot;Log On button exists even after clicking&quot;]" />
-                        <Throw Exception="[new SystemException(&quot;FAILED_TO_LOGIN_TO_HCHB_WEB&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Error" Message="[&quot;Failed to find Training folder&quot;]" />
+                        <Throw Exception="[new BusinessRuleException(&quot;FAILED_TO_LOGIN_TO_HCHB_WEB&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
                       </Sequence>
-                    </If.Then>
-                    <If.Else>
-                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Login Successful&quot;]">
-                        <sap:WorkflowViewStateService.ViewState>
-                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                          </scg:Dictionary>
-                        </sap:WorkflowViewStateService.ViewState>
-                      </ui:LogMessage>
                     </If.Else>
                   </If>
                   <ui:UiElementExists sap2010:Annotation.AnnotationText="Checks whether Citrix Launcher pop-up is present" DisplayName="Element Exists - Push Button" Exists="[popupWindowExists]" sap:VirtualizedContainerService.HintSize="797,137" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
                     <ui:UiElementExists.Target>
-                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2aecb971-f024-4152-9bfe-f5abc6d3d68d" InformativeScreenshot="5a2ac8fc62c7f67a985aa9c247b99808" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='Citrix Receiver - Google Chrome' /&gt;&lt;ctrl name='Open Citrix Workspace Launcher?' role='dialog' /&gt;&lt;ctrl name='Open Citrix Workspace Launcher' role='push button' /&gt;" TimeoutMS="[shortDelay]">
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2aecb971-f024-4152-9bfe-f5abc6d3d68d" InformativeScreenshot="5a2ac8fc62c7f67a985aa9c247b99808" Selector="&lt;ctrl name='Open Citrix Workspace Launcher?' role='dialog' /&gt;&lt;ctrl name='Open Citrix Workspace Launcher' role='push button' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
                         <ui:Target.WaitForReady>
                           <InArgument x:TypeArguments="ui:WaitForReady" />
                         </ui:Target.WaitForReady>
@@ -380,7 +410,10 @@
                           </ui:CursorPosition>
                         </ui:Click.CursorPosition>
                         <ui:Click.Target>
-                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="bfff1d50-7fc4-4fdb-930d-88b0001ce9c4" InformativeScreenshot="f421ac69e67ddbdb4d9419c5481c351c" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='Citrix Receiver - Google Chrome' /&gt;&lt;ctrl name='Open Citrix Workspace Launcher?' role='dialog' /&gt;&lt;ctrl name='Cancel' role='push button' /&gt;" TimeoutMS="[mediumDelay]">
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="bfff1d50-7fc4-4fdb-930d-88b0001ce9c4" InformativeScreenshot="f421ac69e67ddbdb4d9419c5481c351c" Selector="&lt;ctrl name='Open Citrix Workspace Launcher?' role='dialog' /&gt;&lt;ctrl name='Cancel' role='push button' /&gt;">
+                            <ui:Target.TimeoutMS>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:Target.TimeoutMS>
                             <ui:Target.WaitForReady>
                               <InArgument x:TypeArguments="ui:WaitForReady" />
                             </ui:Target.WaitForReady>
@@ -406,7 +439,10 @@
                       </ui:CursorPosition>
                     </ui:Click.CursorPosition>
                     <ui:Click.Target>
-                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="47f16cab-dcff-4579-a999-7a27eb00c521" InformativeScreenshot="4e0d7895278e002f9dfbacb74b33302d" Selector="&lt;html app='chrome.exe' title='Citrix Receiver' /&gt;&lt;webctrl aaname='Training' parentid='home-screen' tag='P' /&gt;" TimeoutMS="[mediumDelay]">
+                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="47f16cab-dcff-4579-a999-7a27eb00c521" InformativeScreenshot="4e0d7895278e002f9dfbacb74b33302d" Selector="&lt;webctrl aaname='Training' parentid='home-screen' tag='P' /&gt;">
+                        <ui:Target.TimeoutMS>
+                          <InArgument x:TypeArguments="x:Int32" />
+                        </ui:Target.TimeoutMS>
                         <ui:Target.WaitForReady>
                           <InArgument x:TypeArguments="ui:WaitForReady" />
                         </ui:Target.WaitForReady>
@@ -418,7 +454,7 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:Click>
-                  <ui:RetryScope sap2010:Annotation.AnnotationText="To retry in case starting dialog box does not appear" DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="797,682" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="5" RetryInterval="00:00:03">
+                  <ui:RetryScope sap2010:Annotation.AnnotationText="To retry in case Starting dialog box does not appear" DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="797,682" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[RetryLimit]" RetryInterval="[RetryInterval]">
                     <ui:RetryScope.ActivityBody>
                       <ActivityAction>
                         <Sequence DisplayName="Action" sap:VirtualizedContainerService.HintSize="376,344" sap2010:WorkflowViewState.IdRef="Sequence_6">
@@ -439,7 +475,10 @@
                               </ui:CursorPosition>
                             </ui:Click.CursorPosition>
                             <ui:Click.Target>
-                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5350c423-6cd3-435d-b655-fb900ce0b456" InformativeScreenshot="1a5304ea016ebbfe205502c4635e8ab7" Selector="[String.Format(&quot;&lt;html app='chrome.exe' title='Citrix Receiver' /&gt;&lt;webctrl parentid='home-screen' tag='IMG' aaname='{0}*' /&gt;&quot;, AppName)]" TimeoutMS="[mediumDelay]">
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5350c423-6cd3-435d-b655-fb900ce0b456" InformativeScreenshot="1a5304ea016ebbfe205502c4635e8ab7" Selector="[String.Format(&quot;&lt;webctrl parentid='home-screen' tag='IMG' aaname='{0}*' /&gt;&quot;, AppName)]">
+                                <ui:Target.TimeoutMS>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:Target.TimeoutMS>
                                 <ui:Target.WaitForReady>
                                   <InArgument x:TypeArguments="ui:WaitForReady" />
                                 </ui:Target.WaitForReady>
@@ -458,7 +497,10 @@
                               </ui:CursorPosition>
                             </ui:Click.CursorPosition>
                             <ui:Click.Target>
-                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0b7cca9f-ddf9-4e7f-a49b-f390781e3b1d" InformativeScreenshot="61aeed8e064326419c3a4a7ac2ed564e" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_1' title='Citrix Receiver - Google Chrome' /&gt;&lt;ctrl name='Open Citrix Workspace Launcher?' role='dialog' /&gt;&lt;ctrl name='Open Citrix Workspace Launcher' role='push button' /&gt;" TimeoutMS="[mediumDelay]">
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0b7cca9f-ddf9-4e7f-a49b-f390781e3b1d" InformativeScreenshot="61aeed8e064326419c3a4a7ac2ed564e" Selector="&lt;ctrl name='Open Citrix Workspace Launcher?' role='dialog' /&gt;&lt;ctrl name='Open Citrix Workspace Launcher' role='push button' /&gt;">
+                                <ui:Target.TimeoutMS>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:Target.TimeoutMS>
                                 <ui:Target.WaitForReady>
                                   <InArgument x:TypeArguments="ui:WaitForReady" />
                                 </ui:Target.WaitForReady>
@@ -472,7 +514,10 @@
                       <ActivityFunc x:TypeArguments="x:Boolean">
                         <ui:UiElementExists sap2010:Annotation.AnnotationText="Stops retying when condition is met i.e when starting dialog box appears." DisplayName="Element Exists - Starting Dialog" Exists="[startingCitrixWindowExists]" sap:VirtualizedContainerService.HintSize="334,148" sap2010:WorkflowViewState.IdRef="UiElementExists_6">
                           <ui:UiElementExists.Target>
-                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6f198517-03d5-44bf-b06d-010131be711f" InformativeScreenshot="ad1ce3c288092f7ee42cb5eaad569dce" Selector="&lt;wnd app='receiver.exe' cls='#32770' title='HCHB R2 - TRADITIONS HEALTH CARE TRAINING ' /&gt;" TimeoutMS="[mediumDelay]">
+                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6f198517-03d5-44bf-b06d-010131be711f" InformativeScreenshot="ad1ce3c288092f7ee42cb5eaad569dce" Selector="&lt;wnd app='receiver.exe' cls='#32770' title='HCHB R2 - TRADITIONS HEALTH CARE TRAINING ' /&gt;">
+                              <ui:Target.TimeoutMS>
+                                <InArgument x:TypeArguments="x:Int32" />
+                              </ui:Target.TimeoutMS>
                               <ui:Target.WaitForReady>
                                 <InArgument x:TypeArguments="ui:WaitForReady" />
                               </ui:Target.WaitForReady>
@@ -496,8 +541,7 @@
               </ActivityAction>
             </ui:BrowserScope.Body>
           </ui:BrowserScope>
-          <Delay Duration="00:00:05" sap:VirtualizedContainerService.HintSize="873,22" sap2010:WorkflowViewState.IdRef="Delay_3" />
-          <ui:Activate DelayBefore="{x:Null}" DelayMS="{x:Null}" sap:VirtualizedContainerService.HintSize="873,68" sap2010:WorkflowViewState.IdRef="Activate_3">
+          <ui:Activate DelayBefore="{x:Null}" DelayMS="{x:Null}" sap2010:Annotation.AnnotationText="Activate Citrix App home screen" sap:VirtualizedContainerService.HintSize="873,99" sap2010:WorkflowViewState.IdRef="Activate_3">
             <ui:Activate.Target>
               <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ab908c10-7e02-4bd1-8e02-7b40efd3da61" Selector="&lt;wnd app='wfica32.exe' cls='Transparent Windows Client' title='HCHB Main*' /&gt;">
                 <ui:Target.TimeoutMS>
@@ -508,15 +552,20 @@
                 </ui:Target.WaitForReady>
               </ui:Target>
             </ui:Activate.Target>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
           </ui:Activate>
-          <p:CVScope ContinueOnError="{x:Null}" DelayBefore="{x:Null}" Server="{x:Null}" ApiKey="RuOFwAqoJ21ubRvWCkA2dnK3ASHCtdf50fLACYjdLck+qO3FE5xyG4np5jcvOm6LmnAjZb3Ci4+zG0OVj8nHtg==" CvMethod="ElementDetection, OCR" DesignTimeCacheId="aa7d84ef-e18f-4af8-8226-f88355bcbf5d" DisplayName="CV Screen Scope ''" sap:VirtualizedContainerService.HintSize="873,478" sap2010:WorkflowViewState.IdRef="CVScope_4" Version="V2">
+          <p:CVScope ContinueOnError="{x:Null}" DelayBefore="{x:Null}" Server="{x:Null}" ApiKey="[APIKey]" CvMethod="ElementDetection, OCR" DesignTimeCacheId="aa7d84ef-e18f-4af8-8226-f88355bcbf5d" DisplayName="CV Screen Scope ''" sap:VirtualizedContainerService.HintSize="873,478" sap2010:WorkflowViewState.IdRef="CVScope_4" Version="V2">
             <p:CVScope.Body>
               <ActivityAction x:TypeArguments="x:Object">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="x:Object" Name="CVSessionData" />
                 </ActivityAction.Argument>
                 <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_18">
-                  <p:CvElementExistsWithDescriptor sap2010:Annotation.AnnotationText="Checks whether Clinical Manager Tab is present" Descriptor="[&quot;Target: Text 'Clinical Manager' (73,23,98,17)&quot;]" DesignTimeCacheId="aa7d84ef-e18f-4af8-8226-f88355bcbf5d" DesignTimeScaleFactor="1" DisplayName="CV Element Exists - Clinical Manager" sap:VirtualizedContainerService.HintSize="400,167" sap2010:WorkflowViewState.IdRef="CvElementExistsWithDescriptor_2" InformativeScreenshot="4bbacb7f0c08b3eb7ac0183b029540df" Result="[IsLoginSuccessful]" TimeoutMS="[mediumDelay]" Version="V2">
+                  <p:CvElementExistsWithDescriptor sap2010:Annotation.AnnotationText="Checks whether Clinical Manager Tab is present" Descriptor="[&quot;Target: Text 'Clinical Manager' (73,23,98,17)&quot;]" DesignTimeCacheId="aa7d84ef-e18f-4af8-8226-f88355bcbf5d" DesignTimeScaleFactor="1" DisplayName="CV Element Exists - Clinical Manager" sap:VirtualizedContainerService.HintSize="400,167" sap2010:WorkflowViewState.IdRef="CvElementExistsWithDescriptor_2" InformativeScreenshot="4bbacb7f0c08b3eb7ac0183b029540df" Result="[IsLoginSuccessful]" Version="V2">
                     <p:CvElementExistsWithDescriptor.DesignTimeDescriptor>
                       <uc:CvDescriptor>
                         <uc:CvDescriptor.Target>
@@ -867,14 +916,14 @@
               </ui:LogMessage>
             </If.Then>
             <If.Else>
-              <Sequence DisplayName="SystemException" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_27">
+              <Sequence DisplayName="BusinessRuleException" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_27">
                 <sap:WorkflowViewStateService.ViewState>
                   <scg:Dictionary x:TypeArguments="x:String, x:Object">
                     <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                   </scg:Dictionary>
                 </sap:WorkflowViewStateService.ViewState>
                 <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Error" Message="[&quot;Failed to login to HCHB App&quot;]" />
-                <Throw Exception="[new SystemException(&quot;FAILED_TO_LOGIN_TO_HCHB_APP&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_5" />
+                <Throw Exception="[new BusinessRuleException(&quot;FAILED_TO_LOGIN_TO_HCHB_APP&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_5" />
               </Sequence>
             </If.Else>
           </If>
@@ -893,33 +942,14 @@
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
             <Sequence DisplayName="Exception Block" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_23">
-              <Sequence.Variables>
-                <Variable x:TypeArguments="x:Int32" Default="5000" Name="MediumDelay" />
-                <Variable x:TypeArguments="x:Int32" Default="2000" Name="ShortDelay" />
-                <Variable x:TypeArguments="x:Int32" Default="15000" Name="LongDelay" />
-              </Sequence.Variables>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Fatal" Message="[exception.Message]" />
-              <Rethrow sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+              <Throw Exception="[new Exception(&quot;LOGIN_HCHB_WEB_ACTIVITY_FAILED&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_8" />
             </Sequence>
-          </ActivityAction>
-        </Catch>
-        <Catch x:TypeArguments="s:SystemException" sap:VirtualizedContainerService.HintSize="919,21" sap2010:WorkflowViewState.IdRef="Catch`1_2">
-          <sap:WorkflowViewStateService.ViewState>
-            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
-              <x:Boolean x:Key="IsPinned">False</x:Boolean>
-            </scg:Dictionary>
-          </sap:WorkflowViewStateService.ViewState>
-          <ActivityAction x:TypeArguments="s:SystemException">
-            <ActivityAction.Argument>
-              <DelegateInArgument x:TypeArguments="s:SystemException" Name="exception" />
-            </ActivityAction.Argument>
-            <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_2" />
           </ActivityAction>
         </Catch>
         <Catch x:TypeArguments="ui:BusinessRuleException" sap:VirtualizedContainerService.HintSize="919,21" sap2010:WorkflowViewState.IdRef="Catch`1_3">
@@ -933,11 +963,19 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="ui:BusinessRuleException" Name="exception" />
             </ActivityAction.Argument>
-            <Rethrow sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Rethrow_3" />
+            <Sequence DisplayName="BusinessRuleException Error Block" sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_28">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_12" Level="Fatal" Message="[exception.Message]" />
+              <Rethrow sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Rethrow_4" />
+            </Sequence>
           </ActivityAction>
         </Catch>
       </TryCatch.Catches>
     </TryCatch>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="953,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;SelectItemFromTable activity completed&quot;]" />
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="953,91" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;LoginHCHBApp activity completed&quot;]" />
   </Sequence>
 </Activity>
